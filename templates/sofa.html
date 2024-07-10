@@ -1,0 +1,179 @@
+ {% extends "design.html" %} 
+
+{% block title %}Product- Sofas and Furnitures{% endblock %}
+
+{% block content %}
+<head>
+    
+    <style>
+        .img img {
+            max-width: 100%;
+            height: auto;
+            max-height: 200px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .second-column-cell {
+            background-color: #f2f2f2;
+        }
+        
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        
+        a:hover {
+            color: #0056b3;
+        }
+        
+        .second-column-cell {
+            height: 200px;
+        }
+        
+       
+
+        .page-link {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .page-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<main class="content p-4">
+    <section class="basic-info">
+        <h1 class="mb-4">Product - Sofas & Furnitures</h1>
+        <div class="add-button-container mb-3">
+            <a href="/addnewsofa/" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
+        </div>
+        <table id="financialYearTable" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sl No.</th>
+                    <th>Category</th>
+                    <th>Product Code</th>
+                    <th>Product Name</th>
+                    <th>Tax%</th>
+                    <th>HSN Code</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Edit/Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in direct %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.Category }}</td>
+                    <td>{{ i.Productcode }}</td>
+                    <td>{{ i.Productname }}</td>
+                    <td>{{ i.Tax }}</td>
+                    <td>{{ i.Hsncode }}</td>
+                    <td>{{ i.Unit }}</td>
+                    <td>{{ i.Unitprice }}</td>
+                    <td class="actions">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ i.id }}">
+                            <button formaction="/edit_sofa_tbl/{{i.id}}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <a href="/dir_del_sofa/{{ i.id }}" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this entry?');">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="entryCount" class="mt-3"></div>
+        <div id="pagination" class="mt-3"></div>
+    </section>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        var dropdowns = document.querySelectorAll('.dropdown');
+
+        dropdownToggles.forEach(function(dropdownToggle) {
+            dropdownToggle.addEventListener('click', function(event) {
+                event.preventDefault();
+                var parentDropdown = this.parentElement;
+                parentDropdown.classList.toggle('active');
+            });
+        });
+
+        document.addEventListener('click', function(event) {
+            dropdowns.forEach(function(dropdown) {
+                if (!dropdown.contains(event.target) && dropdown.classList.contains('active')) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
+
+        // Pagination functionality
+        var rows = document.querySelectorAll('#financialYearTable tbody tr');
+        var rowsPerPage = 10;
+        var currentPage = 1;
+        var totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        function displayRows() {
+            rows.forEach(function(row, index) {
+                if (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function updatePagination() {
+            var pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            for (var i = 1; i <= totalPages; i++) {
+                var pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.innerText = i;
+                pageLink.classList.add('page-link');
+                if (i === currentPage) {
+                    pageLink.classList.add('active');
+                }
+                pageLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    currentPage = parseInt(this.innerText);
+                    displayRows();
+                    updatePagination();
+                });
+                pagination.appendChild(pageLink);
+            }
+        }
+
+        function updateEntryCount() {
+            var entryCount = document.getElementById('entryCount');
+            entryCount.innerText = 'Total Entries: ' + rows.length;
+        }
+
+        displayRows();
+        
+        updateEntryCount();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    <title>Purchase</title>
+
+    <style>
+        .heading-margin {
+            margin-bottom: 20px;
+        }
+
+        .btn-icon {
+            display: flex;
+            align-items: center;
+            font-size: 0.8em;
+            /* Further reduce button size */
+            padding: 0.2rem 0.4rem;
+            /* Further reduce padding */
+        }
+
+        .btn-icon i {
+            margin-right: 3px;
+            /* Reduce the gap between icon and text */
+        }
+
+        .navbar2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .financial-year,
+        .current-date {
+            margin: 25;
+            margin-left: 40%;
+            font-size: x-large;
+            font-weight: bolder;
+        }
+
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            background: none;
+        }
+
+        .breadcrumb li {
+            display: inline;
+            font-size: 12px;
+        }
+
+        .breadcrumb li a {
+            text-decoration: none;
+        }
+
+        .add-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            margin-top: 5px;
+            /* Move the button down by 5 pixels */
+            margin-right: 50px;
+        }
+
+
+
+
+
+
+
+        .container {
+            background-color: #ffffff;
+
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+            max-width: 1500px;
+
+            /* Ensure the container takes the full width */
+            padding: 10px;
+
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+
+            padding: 10px;
+            margin: 0 -20px 20px -20px;
+            color: #721c24;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .container .date {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-group input,
+        .form-group select {
+            flex: 2;
+            padding: 8px;
+
+        }
+
+        .form-group .small-input {
+            flex: 0.5;
+        }
+
+        .form-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-buttons button {
+            padding: 10px 20px;
+
+            margin-left: 0px;
+            border: none;
+            border-radius: 5px;
+
+        }
+
+        .form-buttons .add-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .form-buttons .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .form-table th,
+        .form-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .form-table th {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            border-radius: 10px;
+            background-color: #f8d7da;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-container h2 {
+            margin: 0;
+            margin-left: 10px;
+            /* Adds 10px space before the heading starts */
+        }
+
+
+
+
+
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1 1 45%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .form-group {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                flex-basis: 30%;
+                margin-right: 10px;
+            }
+
+            .form-group input[type="text"],
+            .form-group select {
+                flex-basis: 70%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .form-group {
+                flex: 1 1 100%;
+            }
+
+            .form-group label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+   
+
+    <div id="page-wrapper">
+        <div class="header">
+            <div class="navbar2">
+                <p class="financial-year">Sales Quotation Form - Window Blinds</p>
+
+
+                <ol class="breadcrumb">
+                    <li><i style="font-size: 10px; padding-top: 5px;" class="fa fa-tachometer"></i><a href="#">
+                            &nbsp;&nbsp;Home</a></li>
+                    <li class="active">Back to Add</li>
+                </ol>
+            </div>
+        </div>
+        <div class="container">
+            <div class="header-container">
+                <h2>SALES FORM</h2>
+                <div>{{ current_date|date:"d-m-Y " }}</div>
+            </div>
+
+
+
+            <form name="form1" method="POST" action="/salesform/">{% csrf_token %}
+                
+                <div class="form-group">
+                    <table>
+                        <tr>
+    
+                            <td>Quatation Number<br><input style="width: 80%" type="text" id="bill_number" name="bill_number" value="{{bill_no}}" readonly ></td>
+                                    
+    
+                            <td>date of reciept<br><input style="width: 80%;" type="date" id="reciept_date"
+                                name="reciept_date" ></td>
+    
+                            
+                            <td><select name="cust_name" id="cust_name"  class="form-control" >
+                                <option value="">--SELECT--</option>
+                                    {% for i in le %}
+                                    <option value="{{i.id}}">{{i.cust_name}}</option>
+                                    {% endfor %}
+                                </select></td>
+    
+                            <td>Address<br><input style="width: 80%;" type="text" id="address" name="address"></td>
+                                    
+    
+                                
+                            
+                        </tr>
+                        
+                            {% comment %} <td><button type="button" onclick="window.location.href='/v_add_page/'"
+                                    class="vendor_Add_btn">Add Item</button></td>
+                            </td> {% endcomment %}
+                        </tr>
+    
+    
+                    </table>
+    
+                </div>
+                
+                <div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="add-btn" onclick="addRow()">Add</button>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <div class="table-form">
+                                    <table class="table table-bordered" id="purchasetable">
+                                        <thead style="background-color: #343a40; color: #ffffff;">
+                                            <tr>
+
+                                                <th>Sl&nbsp;No
+                                                </th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT&nbsp;CODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIDTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HEIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RATE/MTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;UNIT&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;QTY&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;TOTAL SQ_FEET&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;PRICE&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                
+
+                                               
+
+                                                
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Existing rows will be added dynamically -->
+                                        </tbody>
+
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                       
+
+                        <script>                                let serialNumber = 1;
+
+                            function addRow() {
+                                const table = document.getElementById('purchasetable').getElementsByTagName('tbody')[0];
+                                const row = table.insertRow();
+                               
+                                row.innerHTML = `
+                                <td><input type="text" name="serial_number[]" value="${serialNumber++}" readonly></td>
+                                <td><select name="product_drop[]"  class="form-control" >
+                                            <option value="">--SELECT--</option>
+                                            {% for i in win %}
+                                            <option value="{{i.id}}">{{i.productname}}</option>
+                                            {% endfor %}
+                                        </select></td>
+                                <td><input type="text"  name="pro_name[]" id="pro_name[]"></td>
+                                <td><input type="text"   name="width[]"  oninput="calculateSqft(this)"></td>
+                                <td><input type="text"  name="height[]"  oninput="calculateSqft(this)"></td>
+                                   
+                                   
+                                <td><input type="text" name="sqft[]"id="sqft[]" oninput="totalsqft(this)"></td>
+                                <td><input type="text" name="ratepermeter[]" id="ratepermeter" oninput="price(this)"></td>
+                                <td><select name="unit[]" id="unit[]">
+                                <option value="sqcm">sqcm</option>
+                                <option value="sqm">sqm</option>
+                                <option value="cm">cm</option>
+                                <option value="m">m</option>
+                                </select>
+                                </td>                               
+                                <td><input type="text" name="QTY[]" id="QTY[]" oninput="totalsqft(this)"></td>
+                                <td><input type="text" name="TOTALSQFT[]" id="TOTALSQFT[]"></td>
+                                <td><input type="text" name="price[]" id="price[]"></td>
+                                
+
+                                
+                                <td><input type="button" class="btn btn-danger" value="delete" name="column1[]" onclick = "deleteRow(this)"></td>
+    
+                                
+                                
+                                
+                                
+                                `;
+
+
+
+
+
+                            }
+                            function calculateSqft(element) {
+                                const row = element.parentElement.parentElement;
+                                const width = parseFloat(row.querySelector('input[name="width[]"]').value) || 0;
+                                const height = parseFloat(row.querySelector('input[name="height[]"]').value) || 0;
+                                const sqft = width * height;
+                                row.querySelector('input[name="sqft[]"]').value = sqft.toFixed(2);
+                            }
+                            function totalsqft(element){
+                                const row=element.parentElement.parentElement;
+                                const sqft1=parseFloat(row.querySelector('input[name="sqft[]"]').value)||0;
+                                const qty=parseFloat(row.querySelector('input[name="QTY[]"]').value)||0;
+                                const tosqft=sqft1*qty;
+                                row.querySelector('input[name="TOTALSQFT[]"]').value= tosqft.toFixed(2);
+                                price(element);
+                                updateTotalMRP();
+                            }
+                            function price(element){
+                                const row=element.parentElement.parentElement;
+                                const rpm= parseFloat(row.querySelector('input[name="ratepermeter[]"]').value)||0;
+                                const tosqft=parseFloat(row.querySelector('input[name="TOTALSQFT[]"]').value)||0;
+                                const price=rpm*tosqft;
+                                row.querySelector('input[name="price[]"]').value=price.toFixed(2);
+                            }
+
+ function updateTotalMRP() {
+    let totalMRP = 0;
+    const mrpInputs = document.querySelectorAll('input[name="price[]"]');
+    mrpInputs.forEach(input => {
+        totalMRP += parseFloat(input.value) || 0;
+    });
+    document.getElementById('total-amount').value = totalMRP.toFixed(2); 
+    
+
+}
+function netAmount(){
+    var totalamt = parseFloat(document.getElementById('total-amount').value) || 0;
+    var pastingcharge = parseFloat(document.getElementById('pasting-charge').value) || 0;
+    var gst = parseFloat(document.getElementById('gst-total').value) || 0;
+    var discount = parseFloat(document.getElementById('discount').value) || 0;
+    var others = parseFloat(document.getElementById('others').value) || 0;
+    var net = (totalamt + pastingcharge + gst + others - discount);
+    document.getElementById('net-amount').value = net;
+}
+
+
+
+
+
+                            function deleteRow(button) {
+                                const row = button.closest('tr');
+                                row.parentNode.removeChild(row);
+                                serialNumber -= 1;
+                                updateRowNumbers();
+                            }
+
+                            function updateRowNumbers() {
+                                const rows = document.querySelectorAll('#purchasetable tbody tr');
+                                rows.forEach((row, index) => {
+                                    row.cells[0].innerText = index + 1;
+                                });
+                            }
+                            function clicker(text) {
+
+
+
+
+
+
+                            }
+
+                        </script>
+
+
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $(document).on('change', 'select[name="product_drop[]"]', function () {
+                                    var selectedOption = $(this).val();
+                                    var $row = $(this).closest('tr');
+                            
+                                   
+                                    $.ajax({
+                                        url: '/your-url_products/', // Django view URL
+                                        type: 'POST',
+                                        data: {
+                                            'selected_option': selectedOption,
+                                            'csrfmiddlewaretoken': '{{ csrf_token }}' // CSRF token for security
+                                        },
+                                        success: function (response) {
+                                            var mrp = response.u*response.up;
+                                            $row.find('input[name="pro_name[]"]').val(response.pc);
+                                            $row.find('input[name="qty[]"]').val(response.u);
+                                            $row.find('input[name="unit[]"]').val(response.up);
+                                            $row.find('input[name="r3-price[]"]').val(response.r3);
+                                            $row.find('input[name="mrp[]"]').val(mrp);
+                                            {% comment %} $row.find('input[name="sgst[]"]').val(response.sgst);
+                                            $row.find('input[name="igst[]"]').val(response.igst);  {% endcomment %}
+                                        },
+                                        error: function (xhr, errmsg, err) {
+                                            console.log('Error:', errmsg);
+                                        }
+                                    });
+                                });
+                            });
+                            </script>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#cust_name').change(function () {
+                                        var selectedOption = $(this).val();
+                                        $.ajax({
+                                            url: '/your-url/', // Django view URL
+                                            type: 'POST',
+                                            data: {
+                                                'selected_option': selectedOption,
+                                                'csrfmiddlewaretoken': '{{ csrf_token }}' // CSRF token for security
+                                            },
+                                            success: function (response) {
+                                                
+                                                document.getElementById("address").value = response.address;
+                                            },
+                                            error: function (xhr, errmsg, err) {
+                                                console.log('Error:', errmsg);
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+                            
+                            
+                            
+                            
+                            
+
+
+                       
+                       
+                        <div class="form-container">
+                            <div class="form-group">
+                                <label for="total-amount">TOTAL AMOUNT</label>
+                                <input type="text" id="total-amount" name="total_amount" on>
+                            </div>
+                            <div class="form-group">
+                                <label for="total-qty">TOTAL QTY</label>
+                                <input type="text" id="total-qty" name="total_qty">
+                            </div>
+                            <div class="form-group">
+                                <label for="pasting-charge">PASTING CHARGE</label>
+                                <input type="text" id="pasting-charge" name="pasting_charge" value="0" oninput='netAmount()'>
+                            </div>
+                            <div class="form-group">
+                                <label for="gst">GST(YES OR NO)</label>
+                                <select id="gst" name="gst">
+                                    <option value="">Select</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="gst-total">GST TOTAL</label>
+                                <input type="text" id="gst-total" name="gst_total" value="0" oninput='netAmount()'>
+                            </div>
+                            <div class="form-group">
+                                <label for="discount">DISCOUNT</label>
+                                <input type="text" id="discount" name="discount" value="0" oninput='netAmount()'>
+                            </div>
+                            <div class="form-group">
+                                <label for="others">Others</label>
+                                <input type="text" id="others" name="others" value="0" oninput='netAmount()'>
+                            </div>
+                            <div class="form-group">
+                                <label for="net-amount">NET AMOUNT</label>
+                                <input type="text" id="net-amount" name="net_amount" value="0"  >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+
+                        <button type="submit" class="save-btn">Save</button>
+                        <button type="button" class="cancel-btn">Cancel</button>
+                    </div>
+            </form>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+    </div>
+    </div>
+
+    
+
+
+</body>
+
+</html>

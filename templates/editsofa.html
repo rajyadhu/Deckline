@@ -1,0 +1,139 @@
+{% extends "design.html" %}
+
+{% block title %}Product- Sofas and Furnitures{% endblock %}
+
+{% block content %}
+<head>
+    <style>
+        body {
+           font-family: Arial, sans-serif;
+           background-color: #f5f5f5;
+       }
+       .container {
+           max-width: 400px;
+           margin: 50px auto;
+           padding: 20px;
+           background-color: #ffffff;
+           border-radius: 5px;
+           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+           position: relative;
+       }
+       .form-group {
+           margin-bottom: 20px;
+           display: flex;
+           align-items: center;
+       }
+       label {
+           width: 150px;
+           margin-right: 10px;
+       }
+       input[type="text"] {
+           flex: 1;
+           padding: 10px;
+           border: 1px solid #ccc;
+           border-radius: 3px;
+       }
+       button {
+           display: inline-block;
+           padding: 8px;
+           border: none;
+           border-radius: 3px;
+           cursor: pointer;
+           margin-right: 10px;
+       }
+       button.submit {
+           background-color: #28a745;
+           color: #ffffff;
+       }
+       button.cancel {
+           background-color: #dc3545;
+           color: #ffffff;
+       }
+       .required-message {
+           color: red;
+           font-size: 0.9em;
+           margin-top: 5px;
+           display: block;
+       }
+       .button-container {
+           position: absolute;
+           bottom: 10px;
+           right: 20px;
+       }
+       .navbar2 {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+       }
+       .breadcrumb {
+           margin-left: auto;  /* Align to the right */
+       }
+       .financial-year {
+           margin-right: auto;
+       }
+   </style>
+</head>
+    
+<div id="page-wrapper">
+    <div class="header">
+        <div class="navbar2">
+            <p class="financial-year"> Product Details Information</p>
+
+            <ol class="breadcrumb">
+                <li><i style="font-size: 10px; padding-top: 5px;" class="fa fa-tachometer"></i><a href="/dash/"> &nbsp;&nbsp;Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </div>
+    </div>
+
+         <div class="container">
+
+            <form method="POST" action="/save_edit_sofa/" enctype="multipart/form-data">{% csrf_token %}
+                <input type="hidden" name="id" value="{{direct.id}}">
+                <div class="form-group">
+                    <label for="Category">Category</label>
+                    <input type="text" id="Category" name="Category" value="{{ direct.Category }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="Productcode">Productcode</label>
+                    <input type="text" id="Productcode" name="Productcode" value="{{direct.Productcode}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="Productname">Productname</label>
+                    <input type="text" id="Productname" name="Productname" value="{{direct.Productname}}" required>
+                </div>
+              
+                
+                <div class="form-group">
+                    <label for="Tax">Tax</label>
+                    <input type="text" id="Tax" name="Tax" value="{{direct.Tax}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="Hsncode">Hsncode</label>
+                    <input type="text" id="Hsncode" name="Hsncode" value="{{direct.Hsncode}}"required>
+                </div>
+                <div class="form-group">
+                    <label for="Unit">Unit</label>
+                    <input type="text" id="Unit" name="Unit" value="{{direct.Unit}}" required>
+                </div>
+               
+                <div class="form-group">
+                    <label for="Unitprice">Unitprice</label>
+                    <input type="text" id="Unitprice" name="Unitprice" value="{{direct.Unitprice}}"required>
+                </div>
+               
+                <div class="button-container">
+                    <button type="submit" class="submit">Save Changes</button>
+                    <button type="button" class="cancel" onclick="window.location.href='/Product/'">Cancel</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('#financialYearTable').DataTable();
+    });
+</script>
+{% endblock %}

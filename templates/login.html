@@ -1,0 +1,103 @@
+{% load static %}
+{% block content %}
+<head>
+    <title>Deckline - Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Garamond, serif;
+            margin: 0;
+            background-attachment: fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensure the body takes up the full viewport height */
+            background-image: url('{% static "images/background.jpg" %}');
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px; /* Add padding for better readability */
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for better visibility */
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+        }
+
+        .logo-container {
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 130px; /* Adjust the width according to your logo */
+            height: 50px; /* Adjust the height according to your logo */
+            background-image: url('{% static 'img/logo.jpg' %}');
+            margin-right: 20px; /* Space between the logo and site title */
+        }
+
+        .site-title {
+            font-size: 24px; /* Adjust as needed */
+            font-weight: bold;
+            color: #333; /* Adjust as needed */
+        }
+
+        .login-container {
+            width: 300px; /* Width for a more square aspect ratio */
+            height: 340px; /* Height for a more square aspect ratio */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners */
+            background-color: #f4f4f4; /* Pure white background */
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container img {
+            width: 20px;
+            margin-bottom: 30px;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"],
+        .login-container button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-container button {
+            margin-top: 20px;
+            background-color: #d9534f;
+        }
+
+        .login-container button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+
+<body>
+    {% comment %} <nav>
+        <div class="logo-container"></div>
+        <div class="site-title">Deckline</div>
+    </nav> {% endcomment %}
+    <div class="login-container">
+        <form action='/checklogin/' method='post'>
+            {% csrf_token %}
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                <img src="{% static 'images/deckline.jpg' %}" alt="Deckline Logo" style="width: 160px; height: 80px; margin-right: 10px;">
+                <h1 style="font-weight: bold; text-align: center; margin: 0;"></h1>
+            </div>
+            <input type="text" name="username" placeholder="Username" required>
+            <input id="password" type="password" name="password" placeholder="Password" required>
+            <button type="submit"> Login</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

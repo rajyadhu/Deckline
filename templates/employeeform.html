@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+            margin-right: 15px;
+        }
+        .form-group:last-child {
+            margin-right: 0;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="file"] {
+            padding: 3px;
+        }
+        .form-actions {
+            text-align: center;
+            margin-top: 15px; /* Add margin-top to create space between the last row and buttons */
+        }
+        .form-actions button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .form-actions button.submit {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .form-actions button.cancel {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Employee Details</h2>
+        <form method="POST" action="/saveemployeeform/" enctype="multipart/form-data">{% csrf_token %}
+            <!-- Row 1 -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="joining-date">Joining Date*</label>
+                    <input type="date" id="joining-date" name="joining-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="employee-id">Employee ID*</label>
+                    <input type="text" id="employee-id" name="employee-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="first-name">First Name*</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name*</label>
+                    <input type="text" id="last-name" name="last-name" required>
+                </div>
+            </div>
+            <!-- Row 2 -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date Of Birth*</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="phone1">Phone Number 1</label>
+                    <input type="tel" id="phone1" name="phone1">
+                </div>
+                <div class="form-group">
+                    <label for="phone2">Phone Number 2</label>
+                    <input type="tel" id="phone2" name="phone2">
+                </div>
+            </div>
+            <!-- Row 3 -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="address">Address*</label>
+                    <textarea id="address" name="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="designation">Designation</label>
+                    <input type="text" id="designation" name="designation" required>
+                </div>
+                <div class="form-group">
+                    <label for="idcard-type">IdCard Type</label>
+                    <input type="text" id="idcard-type" name="idcard-type" required>
+                </div>
+                <div class="form-group">
+                    <label for="idcard-number">Idcard Number</label>
+                    <input type="text" id="idcard-number" name="idcard-number">
+                </div>
+            </div>
+            <!-- Row 4 -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="upload-photo">Upload Photo</label>
+                    <input type="file" id="upload-photo" name="upload-photo">
+                </div>
+                <div class="form-group">
+                    <label for="upload-id-proof">Upload ID Proof</label>
+                    <input type="file" id="upload-id-proof" name="upload-id-proof">
+                </div>
+                <div class="form-group">
+                    <label for="upload-other-document">Upload Other Document</label>
+                    <input type="file" id="upload-other-document" name="upload-other-document">
+                </div> 
+               
+            </div>
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit" class="submit">Submit</button>
+                <button type="button" class="cancel" onclick="window.location.href='/Product/'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

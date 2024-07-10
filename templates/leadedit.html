@@ -1,0 +1,174 @@
+{% extends "design.html" %}
+
+{% block title %}Lead Report{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry Form</title>
+    <style>
+                
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .form-group:last-child {
+            margin-right: 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333; /* Default label color */
+        }
+
+        .form-group label > span {
+            color: red; /* Red color for asterisks */
+            margin-left: 3px; /* Adjust spacing between label text and asterisk */
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .btn-submit {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+
+        .btn-cancel {
+            background-color: #d9534f;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="inquiryForm" action='save_edited_lead/' method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ lead.id }}">
+            <div class="form-section">
+                <h2>Inquiry Details</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inquiryId">Inquiry ID<span>*</span></label>
+                        <input type="text" id="inquiryId" name="inquiryId" value="{{ lead.inquiry_id }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiryDate">Inquiry Date<span>*</span></label>
+                        <input type="date" id="inquiryDate" name="inquiryDate" value="{{ lead.inquiry_date }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerType">Customer Type<span>*</span></label>
+                        <select id="customerType" name="customerType" required>
+                            <option value="Mr" {% if lead.customer_type == "Mr" %}selected{% endif %}>Mr</option>
+                            <option value="Ms" {% if lead.customer_type == "Ms" %}selected{% endif %}>Ms</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerName">Customer Name<span>*</span></label>
+                        <input type="text" id="customerName" name="customerName" value="{{ lead.cust_name }}" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobileNo">Mobile No<span>*</span></label>
+                        <input type="tel" id="mobileNo" name="mobileNo" value="{{ lead.mobile }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alternateNo">Alternate No</label>
+                        <input type="tel" id="alternateNo" name="alternateNo" value="{{ lead.alternate_no }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailId">Email ID</label>
+                        <input type="email" id="emailId" name="emailId" value="{{ lead.email }}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address">Address<span>*</span></label>
+                        <input type="text" id="address" name="address" value="{{ lead.address }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="leadSource">Lead Source</label>
+                        <select id="leadSource" name="leadSource">
+                            <option value="Existing Customer" {% if lead.source == "Existing Customer" %}selected{% endif %}>Existing Customer</option>
+                            <option value="New Customer" {% if lead.source == "New Customer" %}selected{% endif %}>New Customer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inquiryStaff">Inquiry Assigned Staff<span>*</span></label>
+                        <select id="inquiryStaff" name="inquiryStaff" required>
+                            {% for s in staff %}
+                                <option value="{{ s.id }}" {% if lead.assigned_staff.id == s.id %}selected{% endif %}>{{ s.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerRemark">Customer Remark</label>
+                        <input type="text" id="customerRemark" name="customerRemark" value="{{ lead.remark }}">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-submit">Submit</button>
+                    <button type="button" class="btn btn-cancel" onclick="window.location.href='/lead/'">Cancel</button>
+                </div>
+            </div>
+        </form>        
+    </div>
+    <script>
+        document.querySelector('.btn-cancel').addEventListener('click', function() {
+            document.getElementById('inquiryForm').reset();
+        });
+    </script>
+</body>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% include 'design.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Table</title>
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>SL.No</th>
+                <th>Product category</th>
+            </tr>
+        </thead>
+        {% for i in prod %}
+        <tbody>
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.productcategory}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
